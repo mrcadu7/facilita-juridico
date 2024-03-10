@@ -2,6 +2,7 @@
     width: 450px;
     margin: 0 auto;
     padding: 3em;
+    min-height: calc(70vh - 50px - 50px);
   }
   
   .cadastrar_container h1 {

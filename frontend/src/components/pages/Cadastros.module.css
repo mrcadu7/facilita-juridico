@@ -1,0 +1,65 @@
+.cadastros_container {
+    width: 80%; /* Reduzir o tamanho do conteúdo */
+    margin: 0 auto; /* Centralizar o conteúdo */
+    padding: 3em;
+    text-align: center;
+}
+
+.cadastros_container div.client {
+    background-color: #DEDCFF;
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+}
+
+.cadastros_container h1 {
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.cadastros_container h2 {
+    color: #3c6ae4;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+}
+
+.cadastros_container p {
+    font-weight: bold;
+    color: #7b7b7b;
+    margin-bottom: 1.5em;
+}
+
+.cadastros_container input {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+.cadastros_container button {
+    background-color: #222;
+    color: #fff;
+    margin: 0 1em;
+    padding: 0.7em 1.2em;
+    text-decoration: none;
+    transition: .5s;
+    cursor: pointer;
+    border: none;
+}
+
+.cadastros_container .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.cadastros_container button:hover {
+    color: #3c6ae4;
+}
+
+.cadastros_container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
