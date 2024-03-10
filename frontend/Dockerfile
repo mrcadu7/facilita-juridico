@@ -5,10 +5,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . ./
-RUN npm run build
 
-# Stage 2 - the production environment
-FROM nginx:1.17.8-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Durante o desenvolvimento, inicie o servidor de desenvolvimento do React
+CMD [ "npm", "start" ]
+
+# Expose port
+EXPOSE 3001

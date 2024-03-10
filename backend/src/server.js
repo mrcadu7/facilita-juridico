@@ -1,5 +1,7 @@
 // Importando o pacote express
 const express = require('express');
+// Importando o pacote cors
+const cors = require('cors');
 // Importando as rotas dos clientes
 const clientRoutes = require('./routes/clientRoutes');
 
@@ -8,6 +10,8 @@ const app = express();
 
 // Usando o middleware do express para parsear o corpo das requisições como JSON
 app.use(express.json());
+// Usando o middleware cors. IMPORTANTÍSSIMO!
+app.use(cors());
 // Usando as rotas dos clientes no caminho '/api/clients'
 app.use('/api/clients', clientRoutes);
 
