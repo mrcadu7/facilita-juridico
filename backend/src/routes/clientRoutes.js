@@ -19,10 +19,10 @@ router.get('/', async (req, res) => {
 // Rota para cadastrar um novo cliente
 router.post('/', async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
+    const { name, email, phone, x, y } = req.body;
     const newClient = await pool.query(
-      'INSERT INTO clients (name, email, phone) VALUES ($1, $2, $3) RETURNING *',
-      [name, email, phone]
+      'INSERT INTO clients (name, email, phone, x, y) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [name, email, phone, x, y]
     );
     res.json(newClient.rows[0]);
   } catch (err) {
