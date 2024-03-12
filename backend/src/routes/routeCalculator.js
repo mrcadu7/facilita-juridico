@@ -27,11 +27,16 @@ router.get('/', async (req, res) => {
     const result = await pool.query('SELECT * FROM clients');
     let route = result.rows;
 
+    // Adiciona a empresa ao início e ao final da rota
+    const company = { x: 0, y: 0 };
+    route.unshift(company);
+    route.push(company);
+
     let bestDistance = calculateTotalDistance(route);
     while (true) {
       let distance = bestDistance;
-      for (let i = 0; i < route.length - 1; i++) {
-        for (let k = i + 1; k < route.length; k++) {
+      for (let i = 1; i < route.length - 2; i++) { // Ignora a empresa nas trocas
+        for (let k = i + 1; k < route.length - 1; k++) { // Ignora a empresa nas trocas
           let newRoute = twoOptSwap(route, i, k);
           let newDistance = calculateTotalDistance(newRoute);
           if (newDistance < bestDistance) {
@@ -45,7 +50,7 @@ router.get('/', async (req, res) => {
       }
     }
 
-    res.json(route); // Envia a rota otimizada como resposta
+    res.json(route.reverse().slice(1, -1)); // Envia a rota otimizada como resposta
   } catch (err) {
     console.error(err.message);
   }

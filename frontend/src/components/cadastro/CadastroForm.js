@@ -46,6 +46,26 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
                 handleOnChange={handleChange}
                 value={client.phone || ''}
             />
+            <div>
+                <h2>Localização</h2>
+                <Input 
+                    type="number"
+                    text="Eixo X"
+                    name="x"
+                    placeholder="Insira a eixo X aqui!"
+                    handleOnChange={handleChange}
+                    value={client.x || ''}
+                />
+                <Input 
+                    type="number"
+                    text="Eixo Y"
+                    name="y"
+                    placeholder="Insira a eixo Y aqui!"
+                    handleOnChange={handleChange}
+                    value={client.y || ''}
+                />
+            </div>
+            
             <SubmitButton text={btnText} />
         </form>
     )
