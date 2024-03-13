@@ -1,17 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Input from '../form/Input'
 import SubmitButton from '../form/SubmitButton'
 import styles from './CadastroForm.module.css'
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
-function CadastroForm ( { handleSubmit ,btnText } ) {
+function validatePhone(phone) {
+    var re = /^\d+$/;
+    return re.test(phone);
+}
+
+function CadastroForm({ handleSubmit, btnText }) {
 
     const [client, setClient] = useState({})
-    
+
     const submit = (e) => {
         e.preventDefault()
-        // console.log(project)
+        if (!client.name || client.name.trim() === '') {
+            alert('Nome é obrigatório');
+            return;
+        }
+        if (!validateEmail(client.email)) {
+            alert('Email inválido');
+            return;
+        }
+        if (!validatePhone(client.phone)) {
+            alert('Telefone inválido');
+            return;
+        }
         handleSubmit(client)
     }
 
@@ -19,10 +39,9 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
         setClient({ ...client, [e.target.name]: e.target.value })
     }
 
-
     return (
         <form onSubmit={submit} className={styles.form}>
-            <Input 
+            <Input
                 type="text"
                 text="Nome"
                 name="name"
@@ -30,7 +49,7 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
                 handleOnChange={handleChange}
                 value={client.name || ''}
             />
-            <Input 
+            <Input
                 type="text"
                 text="Email"
                 name="email"
@@ -38,7 +57,7 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
                 handleOnChange={handleChange}
                 value={client.email || ''}
             />
-            <Input 
+            <Input
                 type="text"
                 text="Telefone"
                 name="phone"
@@ -48,7 +67,7 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
             />
             <div>
                 <h2>Localização</h2>
-                <Input 
+                <Input
                     type="number"
                     text="Eixo X"
                     name="x"
@@ -56,7 +75,7 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
                     handleOnChange={handleChange}
                     value={client.x || ''}
                 />
-                <Input 
+                <Input
                     type="number"
                     text="Eixo Y"
                     name="y"
@@ -65,10 +84,10 @@ function CadastroForm ( { handleSubmit ,btnText } ) {
                     value={client.y || ''}
                 />
             </div>
-            
+
             <SubmitButton text={btnText} />
         </form>
     )
 }
 
-export default CadastroForm
+export default CadastroForm;

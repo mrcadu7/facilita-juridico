@@ -1,6 +1,6 @@
 .cadastros_container {
-    width: 80%; /* Reduzir o tamanho do conteúdo */
-    margin: 0 auto; /* Centralizar o conteúdo */
+    width: 80%;
+    margin: 0 auto;
     padding: 3em;
     text-align: center;
 }

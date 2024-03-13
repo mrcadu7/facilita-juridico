@@ -31,6 +31,9 @@ function Cadastros() {
   const displayedClients = filteredClients.slice(startIndex, endIndex);
   const hasNextPage = endIndex < filteredClients.length;
   const hasPreviousPage = page > 1;
+  const totalPages = Math.ceil(filteredClients.length / clientsPerPage);
+  const hasFirstPage = page > 1;
+  const hasLastPage = page < totalPages;
 
   const openModal = () => {
     fetch('http://localhost:3000/api/routeCalculator/')
@@ -70,9 +73,18 @@ function Cadastros() {
         </div>
       ))}
 
-      
+<div className={styles.pagination}>
+        {hasFirstPage && (
+          <button 
+            onClick={() => { 
+              setPage(1);
+              window.scrollTo(0, 0);
+            }}
+          >
+            Início
+          </button>
+        )}
 
-      <div className={styles.pagination}>
         {hasPreviousPage && (
           <button 
             onClick={() => { 
@@ -88,14 +100,40 @@ function Cadastros() {
 
         {hasNextPage && (
           <button 
-          onClick={() => {
-            setPage(page => page + 1);
-            window.scrollTo(0, 0);
-          }}
-        >
+            onClick={() => {
+              setPage(page => Math.min(page + 1, totalPages));
+              window.scrollTo(0, 0);
+            }}
+          >
             Próximo
           </button>
         )}
+
+        {hasLastPage && (
+          <button 
+            onClick={() => {
+              setPage(totalPages);
+              window.scrollTo(0, 0);
+            }}
+          >
+            Fim
+          </button>
+        )}
+      </div>
+
+      <div className={styles.pagination}>
+        {[...Array(totalPages).keys()].slice(Math.max(0, page - 3), page + 2).map(i => (
+          <button 
+            key={i}
+            onClick={() => {
+              setPage(i + 1);
+              window.scrollTo(0, 0);
+            }}
+            style={{ fontWeight: page === i + 1 ? 'bold' : 'normal' }}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     const result = await pool.query('SELECT * FROM clients');
     let route = result.rows;
 
-    // Adiciona a empresa ao início e ao final da rota
+    // Adiciona a empresa ao início e ao final da rota***
     const company = { x: 0, y: 0 };
     route.unshift(company);
     route.push(company);
@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
       }
     }
 
-    res.json(route.reverse().slice(1, -1)); // Envia a rota otimizada como resposta
+    res.json(route.reverse().slice(1, -1)); // Envia a rota otimizada como resposta e retira a empresa nas duas extremidades
   } catch (err) {
     console.error(err.message);
   }

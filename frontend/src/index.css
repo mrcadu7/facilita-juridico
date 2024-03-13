@@ -5,9 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex; /* Adicionado */
-  flex-direction: column; /* Adicionado */
-  min-height: 90vh; /* Adicionado */
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
 }
 
 code {

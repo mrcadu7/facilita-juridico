@@ -1,10 +1,17 @@
-// Importando o pacote express
 const express = require('express');
-// Criando um novo roteador
 const router = express.Router();
-
-// Importando o pool de conexões do banco de dados
 const pool = require('../config/db');
+
+// Funções de validação com o meu querido REGEX
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function validatePhone(phone) {
+    var re = /^\d+$/;
+    return re.test(phone);
+}
 
 // Rota para listar os clientes
 router.get('/', async (req, res) => {
@@ -20,6 +27,18 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { name, email, phone, x, y } = req.body;
+
+    // Validações
+    if (!name || name.trim() === '') {
+      return res.status(400).json({ error: 'Nome é obrigatório' });
+    }
+    if (!validateEmail(email)) {
+      return res.status(400).json({ error: 'Email inválido' });
+    }
+    if (!validatePhone(phone)) {
+      return res.status(400).json({ error: 'Telefone inválido' });
+    }
+
     const newClient = await pool.query(
       'INSERT INTO clients (name, email, phone, x, y) VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [name, email, phone, x, y]
@@ -30,5 +49,4 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Exportando o roteador
 module.exports = router;
